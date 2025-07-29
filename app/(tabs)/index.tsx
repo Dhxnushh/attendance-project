@@ -17,38 +17,22 @@ export default function HomeScreen() {
         />
       }>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
+        <ThemedText className="text-red-600 text-2xl font-bold" type="title">Welcome to Attendance App!</ThemedText>
         <HelloWave />
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
+      <ThemedView className="bg-blue-100 p-4 m-2 rounded-lg" style={styles.stepContainer}>
+        <ThemedText className="text-blue-800 text-lg font-semibold" type="subtitle">🎓 University Attendance System</ThemedText>
+        <ThemedText className="text-gray-700">
+          Secure attendance tracking with biometric authentication and QR code verification.
         </ThemedText>
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
+      <ThemedView className="bg-green-100 p-4 m-2 rounded-lg" style={styles.stepContainer}>
+        <ThemedText className="text-green-800 text-lg font-semibold" type="subtitle">🔒 Security Features</ThemedText>
+        <ThemedText className="text-gray-700">
+          • Biometric authentication{'\n'}
+          • Refreshing QR codes{'\n'}
+          • Location verification{'\n'}
+          • Anti-proxy protection
         </ThemedText>
       </ThemedView>
     </ParallaxScrollView>
