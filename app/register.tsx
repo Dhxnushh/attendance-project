@@ -1,11 +1,15 @@
 import { Image } from 'expo-image';
-import { StyleSheet, TextInput, TouchableOpacity, View, Alert } from 'react-native';
+import { Platform, StyleSheet, TextInput, TouchableOpacity, View, Alert, Dimensions,Text } from 'react-native';
 import { useState } from 'react';
-import { IoFingerPrint } from "react-icons/io5";
-import { Link } from 'expo-router';
-
+import { Ionicons } from '@expo/vector-icons';
+import Entypo from '@expo/vector-icons/Entypo';
+import { Link, router } from 'expo-router';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { HelloWave } from '@/components/HelloWave';
+import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 export default function RegisterScreen() {
   const [registerNumber, setRegisterNumber] = useState('');
@@ -42,96 +46,42 @@ export default function RegisterScreen() {
   };
 
   return (
-    <View className="flex-1 items-center justify-center min-h-[60vh] bg-red-100">
-      <ThemedView className="w-full max-w-xs bg-red-200 p-3 rounded-2xl shadow-xl border border-red-300 -mt-10 z-10">
-        {/* Header */}
-        <ThemedView className="items-center mb-4 bg-red-200 p-2 rounded-xl">
-          <Image
-            source={require('@/assets/images/logo.png')}
-            style={{ width: 75, height: 75 }}
-          />
-          <ThemedText className="text-red-800 text-lg font-black text-center mb-1 tracking-tight">Register</ThemedText>
-          <ThemedText className="text-red-600 text-center font-medium text-xs">Create your account</ThemedText>
-        </ThemedView>
-
-        {/* Register Number Input */}
-        <ThemedView className="mb-2 bg-red-200 p-2 rounded-xl">
-          <ThemedText className="text-red-800 font-bold mb-1 text-sm">Register Number</ThemedText>
-          <TextInput
-            className="bg-red-300 p-2 rounded-lg border-2 border-red-500 shadow-sm"
-            placeholder="Register number"
-            placeholderTextColor="#7f1d1d"
-            value={registerNumber}
-            onChangeText={setRegisterNumber}
-            autoCapitalize="characters"
-            style={styles.compactInput}
-          />
-        </ThemedView>
-
-        {/* Password Input */}
-        <ThemedView className="mb-2 bg-red-200 p-2 rounded-xl">
-          <ThemedText className="text-red-800 font-bold mb-1 text-sm">Password</ThemedText>
-          <TextInput
-            className="bg-red-300 p-2 rounded-lg border-2 border-red-500 shadow-sm"
-            placeholder="Password"
-            placeholderTextColor="#7f1d1d"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-            style={styles.compactInput}
-          />
-        </ThemedView>
-
-        {/* Confirm Password Input */}
-        <ThemedView className="mb-2 bg-red-200 p-2 rounded-xl">
-          <ThemedText className="text-red-800 font-bold mb-1 text-sm">Confirm Password</ThemedText>
-          <TextInput
-            className="bg-red-300 p-2 rounded-lg border-2 border-red-500 shadow-sm"
-            placeholder="Confirm password"
-            placeholderTextColor="#7f1d1d"
-            value={confirmPassword}
-            onChangeText={setConfirmPassword}
-            secureTextEntry
-            style={styles.compactInput}
-          />
-        </ThemedView>
-
-        {/* Biometric Registration */}
-        <ThemedView className="mb-2 bg-red-200 p-2 rounded-xl">
-          <ThemedText className="text-red-800 font-bold mb-1 text-sm">Add Biometrics</ThemedText>
-          <TouchableOpacity
-            onPress={handleBiometricRegister}
-            className={`bg-red-300 p-2 rounded-lg border-2 border-red-500 shadow-sm flex-row items-center justify-center ${biometricStatus === 'added' ? 'opacity-80' : ''}`}
-          >
-            <IoFingerPrint size={24} color="#dc2626" />
-            <ThemedText className="text-red-800 text-sm font-bold ml-2">
-              {biometricStatus === 'added' ? 'Added' : 'Tap to Add'}
-            </ThemedText>
-          </TouchableOpacity>
-        </ThemedView>
-
-        {/* Register Button */}
-        <ThemedView className="bg-red-200 p-2 rounded-xl">
-          <TouchableOpacity
-            onPress={handleRegister}
-            className={`p-2 rounded-lg items-center ${
-              registerNumber && password && confirmPassword && biometricStatus === 'added'
-                ? 'bg-red-600'
-                : 'bg-red-400'
-            }`}
-            disabled={!registerNumber || !password || !confirmPassword || biometricStatus !== 'added'}
-          >
-            <ThemedText className="text-white font-black text-base tracking-wide">
-              Register
-            </ThemedText>
-          </TouchableOpacity>
-          <Link href="/login" asChild>
-            <ThemedText className='items-center text-center p-3 text-red-700 underline'>
-              Already have an account? Login
-            </ThemedText>
-          </Link>
-        </ThemedView>
-      </ThemedView>
+    <View className="flex-1 bg-emerald-400 border-12 border-black">
+      <View className='flex-col top-0'>
+        
+      <View className='flex col items-center justify-start opacity-70 bg-black border-4 border-black h-[100%] top-[28%] bottom-0 rounded-[20] p-6'>
+        <Text className='text-[#50C878] p-2 text-4xl font-extrabold'>SignUp</Text>
+        
+        <View className='flex-row justify-center items-center w-[95%] my-8 bg-transparent rounded-lg border-b-4'>
+          <FontAwesome name="user" size={24} color="#50C878" />
+          <TextInput placeholder='Register Number' className='w-[95%] my-1'></TextInput>
+        </View>
+        
+        <View className='flex-row justify-center items-center w-[95%] my-8 bg-transparent rounded-lg border-b-4'>
+          <Entypo name="lock" size={24} color="#50C878" />
+          <TextInput placeholder='Password' className='w-[95%] my-1'></TextInput>
+        </View>
+        <View className='flex-row justify-center items-center w-[95%] my-8 bg-transparent rounded-lg border-b-4'>
+          <Entypo name="lock" size={24} color="#50C878" />
+          <TextInput placeholder='Confirm Password' className='w-[95%] my-1'></TextInput>
+        </View>
+        <View> 
+        </View>
+        <TouchableOpacity className='flex-row justify-center items-center w-[95%] m-8 bg-transparent p-2 rounded-lg border-4' onPress={handleRegister}>
+          <Ionicons name="finger-print" size={24} color="#50C878" />
+          <Text className='text-center px-2 text-black font-bold'>Add Biometric</Text>
+        </TouchableOpacity>
+        <TouchableOpacity className='w-[95%] flex-row justify-center items-center  bg-transparent p-2 rounded-lg border-4' onPress={handleRegister}>
+          <MaterialIcons name="login" size={24} color="#50C878" />
+          <Text className='text-center px-2 text-black font-bold'>Register</Text>
+        </TouchableOpacity>
+        <TouchableOpacity className='w-[99%] p-2 ' onPress={() => router.push('/login')}>
+          <Text className='text-center text-black font-bold'>Already have an account? <Text className='text-emerald-200'>Click here to SignIn</Text></Text>
+        </TouchableOpacity>
+      </View>
+      </View>
+      
+      
     </View>
   );
 }

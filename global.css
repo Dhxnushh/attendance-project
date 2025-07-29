@@ -2,66 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Global styles for University Attendance App */
-
-/* Base app styles */
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-}
-
-/* Attendance App Theme Colors */
-:root {
-  --primary-blue: #0066cc;
-  --secondary-green: #28a745;
-  --warning-orange: #ff9500;
-  --error-red: #dc3545;
-  --background-light: #f8f9fa;
-  --background-dark: #1a1a1a;
-  --text-primary: #333333;
-  --text-secondary: #666666;
-}
-
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background-light: #1a1a1a;
-    --background-dark: #f8f9fa;
-    --text-primary: #ffffff;
-    --text-secondary: #cccccc;
-  }
-}
+/* React Native compatible styles for University Attendance App */
 
 /* Common utility classes for attendance app */
 .attendance-container {
   padding: 16px;
-  background-color: var(--background-light);
+  background-color: #f8f9fa;
 }
 
 .attendance-card {
-  background: white;
+  background-color: #ffffff;
   border-radius: 12px;
   padding: 20px;
-  margin: 8px 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .attendance-button {
-  background-color: var(--primary-blue);
-  color: white;
-  padding: 12px 24px;
+  background-color: #0066cc;
+  color: #ffffff;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 24px;
+  padding-right: 24px;
   border-radius: 8px;
-  border: none;
   font-weight: 600;
   text-align: center;
 }
 
-.attendance-button:disabled {
+.attendance-button-disabled {
   background-color: #cccccc;
   opacity: 0.6;
 }
@@ -69,7 +38,10 @@ body {
 .biometric-icon {
   width: 64px;
   height: 64px;
-  margin: 16px auto;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .qr-scanner-container {
@@ -77,53 +49,65 @@ body {
   height: 300px;
   border-radius: 12px;
   overflow: hidden;
-  margin: 16px 0;
+  margin-top: 16px;
+  margin-bottom: 16px;
 }
 
 .security-indicator {
-  display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  background-color: var(--secondary-green);
-  color: white;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
+  background-color: #28a745;
+  color: #ffffff;
   border-radius: 6px;
   font-size: 14px;
 }
 
-.security-indicator.warning {
-  background-color: var(--warning-orange);
+.security-indicator-warning {
+  background-color: #ff9500;
 }
 
-.security-indicator.error {
-  background-color: var(--error-red);
+.security-indicator-error {
+  background-color: #dc3545;
 }
 
-/* Animation utilities */
-.fade-in {
-  animation: fadeIn 0.3s ease-in-out;
+/* Text styles */
+.text-primary {
+  color: #333333;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.text-secondary {
+  color: #666666;
 }
 
-.pulse {
-  animation: pulse 2s infinite;
+.text-white {
+  color: #ffffff;
 }
 
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
+/* Background colors */
+.bg-primary {
+  background-color: #0066cc;
+}
+
+.bg-secondary {
+  background-color: #28a745;
+}
+
+.bg-warning {
+  background-color: #ff9500;
+}
+
+.bg-error {
+  background-color: #dc3545;
+}
+
+.bg-light {
+  background-color: #f8f9fa;
+}
+
+.bg-dark {
+  background-color: #1a1a1a;
 }
