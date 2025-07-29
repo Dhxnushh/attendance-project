@@ -1,15 +1,12 @@
 import { Image } from 'expo-image';
 import { Platform, StyleSheet, TextInput, TouchableOpacity, View, Alert, Dimensions,Text } from 'react-native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import Entypo from '@expo/vector-icons/Entypo';
-import { Link, router } from 'expo-router';
+import { Link, Redirect, router } from 'expo-router';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import * as LocalAuthentication from 'expo-local-authentication';
 
 const { width, height } = Dimensions.get('window');
 
@@ -17,28 +14,47 @@ export default function LoginScreen() {
   const [registerNumber, setRegisterNumber] = useState('');
   const [password, setPassword] = useState('');
   const [biometricStatus, setBiometricStatus] = useState('pending');
+  const [isBiometricSupported, setIsBiometricSupported] = useState(false);
 
-  const handleBiometricAuth = () => {
-    Alert.alert(
-      "Biometric Authentication",
-      "Place your finger on the sensor or look at the camera",
-      [
-        { text: "Cancel", onPress: () => setBiometricStatus('failed') },
-        { text: "Simulate Success", onPress: () => setBiometricStatus('verified') }
-      ]
-    );
+  useEffect(() => {
+    (async () => {
+      const compatible = await LocalAuthentication.hasHardwareAsync();
+      setIsBiometricSupported(compatible);
+    })();
+  }, []);
+
+   const handleBiometricAuth = async () => {
+    const savedBiometrics = await LocalAuthentication.isEnrolledAsync();
+    if (!savedBiometrics) {
+      return Alert.alert('Biometric not set up', 'No fingerprints or face ID found.');
+    }
+    const result = await LocalAuthentication.authenticateAsync({
+      promptMessage: 'Login with Biometrics',
+      fallbackLabel: 'Enter Password',
+      cancelLabel: 'Cancel',
+    });
+
+    if (result.success && registerNumber!==''){
+      Alert.alert('Access Granted ✅');
+      router.push({pathname: '/home',params: { registerNumber }});
+      setBiometricStatus('verified');
+      setRegisterNumber("");
+      setPassword("");
+    } else {
+      Alert.alert('Authentication Failed Enter Reg-no ❌');
+        }
   };
 
   const handleLogin = () => {
-    if (!registerNumber || !password) {
-      Alert.alert("Error", "Please enter register number and password");
-      return;
-    }
-    if (biometricStatus !== 'verified') {
-      Alert.alert("Error", "Please complete biometric verification");
-      return;
-    }
-    Alert.alert("Success", "Login successful! Welcome to the attendance system.");
+    if (password!=='' && registerNumber!==''){
+      Alert.alert('Access Granted ✅');
+      router.push({pathname: '/home',params: { registerNumber }});
+      setBiometricStatus('verified');
+      setRegisterNumber("");
+      setPassword("");
+    } else {
+      Alert.alert('Authentication Failed Enter Reg-no & pw❌');
+        }
   };
 
   return (
@@ -50,16 +66,16 @@ export default function LoginScreen() {
         
         <View className='flex-row justify-center items-center w-[95%] my-8 bg-transparent rounded-lg border-b-4'>
           <FontAwesome name="user" size={24} color="#50C878" />
-          <TextInput placeholder='Register Number' className='w-[95%] my-1'></TextInput>
+          <TextInput onChangeText={(text)=>setRegisterNumber(text)} value={registerNumber} placeholder='Register Number' className='w-[95%] my-1'></TextInput>
         </View>
         
         <View className='flex-row justify-center items-center w-[95%] my-8 bg-transparent rounded-lg border-b-4'>
           <Entypo name="lock" size={24} color="#50C878" />
-          <TextInput placeholder='Password' className='w-[95%] my-1'></TextInput>
+          <TextInput onChangeText={(text)=>setPassword(text)} value={password} placeholder='Password' className='w-[95%] my-1'></TextInput>
         </View>
         <View> 
         </View>
-        <TouchableOpacity className='flex-row justify-center items-center w-[95%] m-8 bg-transparent p-2 rounded-lg border-4' onPress={handleLogin}>
+        <TouchableOpacity className='flex-row justify-center items-center w-[95%] m-8 bg-transparent p-2 rounded-lg border-4' onPress={handleBiometricAuth}>
           <Ionicons name="finger-print" size={24} color="#50C878" />
           <Text className='text-center px-2 text-black font-bold'>Biometric Verification</Text>
         </TouchableOpacity>
