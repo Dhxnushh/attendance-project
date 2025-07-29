@@ -2,11 +2,20 @@ import { Image } from 'expo-image';
 import { Platform, StyleSheet, TextInput, TouchableOpacity, View, Alert } from 'react-native';
 import { useState } from 'react';
 import { IoFingerPrint } from "react-icons/io5";
+import { Link } from 'expo-router';
+// ...existing code...
+import { Dimensions } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+const { width, height } = Dimensions.get('window');
+
+
+// ...SVG pattern background removed...
+
+
 
 export default function LoginScreen() {
   const [registerNumber, setRegisterNumber] = useState('');
@@ -38,88 +47,86 @@ export default function LoginScreen() {
   };
 
   return (
-    <ParallaxScrollView
-      headerImage={
-        <Image
-          source={require('@/assets/images/4-52.jpg')}
-          style={{ width: '100%', height: 300 }}
-        />
-      }
-      headerBackgroundColor={{
-        dark: '#fef2f2',
-        light: '#fef2f2',
-      }}
-    >
-      <ThemedView className="flex-1 bg-red-200 p-6 m-2 rounded-3xl shadow-2xl border border-red-300">
+    <View className="flex-1 items-center justify-center min-h-[60vh]" style={{ backgroundColor: '#fef2f2' }}>
+      <ThemedView className="w-full max-w-xs bg-transparent p-3 rounded-2xl shadow-xl border border-red-300 -mt-10 z-10">
         {/* Header */}
-        <ThemedView className="items-center mb-6 bg-red-200 p-4 rounded-2xl">
-          <ThemedView className="bg-red-600 w-12 h-12 rounded-full items-center justify-center mb-3 shadow-lg">
-            <ThemedText className="text-white text-lg">🎓</ThemedText>
-          </ThemedView>
-          <ThemedText className="text-red-800 text-2xl font-black text-center mb-1 tracking-tight">Student Portal</ThemedText>
-          <ThemedText className="text-red-600 text-center font-medium text-sm">University Attendance System</ThemedText>
+        <ThemedView className="items-center mb-4 bg-transparent p-2 rounded-xl">
+          
+            <Image
+        source={require('@/assets/images/logo.png')}
+        style={{ width: 75, height: 75 }}
+      />
+          
+          <ThemedText className="text-red-800 text-lg font-black text-center mb-1 tracking-tight">Student Portal</ThemedText>
+          <ThemedText className="text-red-600 text-center font-medium text-xs">University Attendance System</ThemedText>
         </ThemedView>
 
         {/* Register Number Input */}
-        <ThemedView className="mb-4 bg-red-200 p-4 rounded-2xl">
-          <ThemedText className="text-red-800 font-bold mb-3 text-lg">Register Number</ThemedText>
+        <ThemedView className="mb-2 bg-red-200 p-2 rounded-xl">
+          <ThemedText className="text-red-800 font-bold mb-1 text-sm">Register Number</ThemedText>
           <TextInput
-            className="bg-red-300 p-4 rounded-xl border-2 border-red-500 shadow-sm"
-            placeholder="Enter your register number"
+            className="bg-red-300 p-2 rounded-lg border-2 border-red-500 shadow-sm"
+            placeholder="Register number"
             placeholderTextColor="#7f1d1d"
             value={registerNumber}
             onChangeText={setRegisterNumber}
             autoCapitalize="characters"
-            style={styles.modernInput}
+            style={styles.compactInput}
           />
         </ThemedView>
 
         {/* Password Input */}
-        <ThemedView className="mb-4 bg-red-200 p-4 rounded-2xl">
-          <ThemedText className="text-red-800 font-bold mb-3 text-lg">Password</ThemedText>
+        <ThemedView className="mb-2 bg-red-200 p-2 rounded-xl">
+          <ThemedText className="text-red-800 font-bold mb-1 text-sm">Password</ThemedText>
           <TextInput
-            className="bg-red-300 p-4 rounded-xl border-2 border-red-500 shadow-sm"
-            placeholder="Enter your password"
+            className="bg-red-300 p-2 rounded-lg border-2 border-red-500 shadow-sm"
+            placeholder="Password"
             placeholderTextColor="#7f1d1d"
             value={password}
             onChangeText={setPassword}
             secureTextEntry
-            style={styles.modernInput}
+            style={styles.compactInput}
           />
         </ThemedView>
 
         {/* Biometric Verification */}
-        <ThemedView className="mb-4 bg-red-200 p-4 rounded-2xl">
-          <ThemedText className="text-red-800 font-bold mb-3 text-lg">Biometric Authentication</ThemedText>
+        <ThemedView className="mb-2 bg-red-200 p-2 rounded-xl">
+          <ThemedText className="text-red-800 font-bold mb-1 text-sm">Biometric Authentication</ThemedText>
           <TouchableOpacity
             onPress={handleBiometricAuth}
-            className="bg-red-300 p-4 rounded-xl border-2 border-red-500 shadow-sm flex-row items-center justify-center"
-          >
-            <IoFingerPrint size={20} color="#7f1d1d" />
-            <ThemedText className="text-red-800 text-lg font-bold ml-3">
-              {biometricStatus === 'verified' ? '✓ Verified' : 'Tap to Verify'}
+            className={`bg-red-300 p-2 rounded-lg border-2 border-red-500 shadow-sm flex-row items-center justify-center ${biometricStatus === 'verified' ? 'opacity-80' : ''}`}
+          >   
+              <IoFingerPrint size={24} color="#dc2626" />
+            <ThemedText className="text-red-800 text-sm font-bold">
+              {biometricStatus === 'verified' ? 'Verified' : 'Tap to Verify'}
             </ThemedText>
           </TouchableOpacity>
         </ThemedView>
 
         {/* Login Button */}
-        <ThemedView className="bg-red-200 p-4 rounded-2xl">
+        <ThemedView className="bg-red-200 p-2 rounded-xl">
           <TouchableOpacity
             onPress={handleLogin}
-            className={`p-4 rounded-xl items-center ${
+            className={`p-2 rounded-lg items-center ${
               registerNumber && password && biometricStatus === 'verified'
                 ? 'bg-red-600'
                 : 'bg-red-400'
             }`}
             disabled={!registerNumber || !password || biometricStatus !== 'verified'}
           >
-            <ThemedText className="text-white font-black text-lg tracking-wide">
-              LOGIN
+            <ThemedText className="text-white font-black text-base tracking-wide">
+              Login
             </ThemedText>
           </TouchableOpacity>
+          <Link href="/register" asChild>
+            <ThemedText className='items-center text-center p-3 text-red-700 underline'>
+              Don't have an account? Signup
+            </ThemedText>
+          </Link>
         </ThemedView>
       </ThemedView>
-    </ParallaxScrollView>
+      {/* WavyHeader removed, pattern background is now used */}
+    </View>
   );
 }
 
@@ -149,5 +156,11 @@ const styles = StyleSheet.create({
     color: '#dc2626',
     fontWeight: '600',
     letterSpacing: 0.5,
+  },
+  compactInput: {
+    fontSize: 14,
+    color: '#dc2626',
+    fontWeight: '600',
+    letterSpacing: 0.3,
   },
 });
