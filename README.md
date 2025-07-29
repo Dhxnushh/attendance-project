@@ -1,8 +1,31 @@
-# Welcome to your Expo app 👋
+# University Student Attendance App 📱🎓
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A secure mobile application for university student attendance tracking with biometric authentication and anti-proxy features.
 
-## Get started
+## � Features
+
+- **Biometric Authentication**: Secure login using fingerprint/face recognition
+- **QR Code Attendance**: Dynamic QR codes that refresh to prevent proxy attendance
+- **Local Hotspot Detection**: Ensures students are physically present on campus
+- **Real-time Tracking**: Live attendance monitoring for students and faculty
+- **Secure & Tamper-proof**: Multiple security layers to prevent attendance fraud
+- **Cross-platform**: Works on both iOS and Android devices
+
+## 🛡️ Anti-Proxy Security
+
+- **Refreshing QR Codes**: QR codes automatically refresh at set intervals
+- **Location Verification**: Validates student location using campus WiFi/hotspot
+- **Biometric Verification**: Ensures the actual student is marking attendance
+- **Time-limited Sessions**: Attendance windows with strict time constraints
+
+## 📱 Getting Started
+
+### Prerequisites
+- Node.js (v16 or higher)
+- Expo CLI
+- Mobile device or emulator for testing
+
+### Installation
 
 1. Install dependencies
 
@@ -10,11 +33,13 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npm install
    ```
 
-2. Start the app
+2. Start the development server
 
    ```bash
    npx expo start
    ```
+
+3. Scan the QR code with Expo Go app or run on emulator
 
 In the output, you'll find options to open the app in a
 
@@ -25,26 +50,104 @@ In the output, you'll find options to open the app in a
 
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Get a fresh project
+## 🏗️ Project Structure
 
-When you're ready, run:
+```
+attendance-project/
+├── app/                    # Main application screens
+│   ├── (tabs)/            # Tab-based navigation
+│   ├── _layout.tsx        # Root layout
+│   └── +not-found.tsx     # 404 page
+├── components/            # Reusable UI components
+├── constants/             # App constants and configuration
+├── hooks/                 # Custom React hooks
+└── assets/               # Images, fonts, and static files
+```
+
+## 🔧 Tech Stack
+
+- **Frontend**: React Native with Expo
+- **Navigation**: Expo Router (file-based routing)
+- **Biometrics**: Expo Local Authentication
+- **QR Codes**: Dynamic generation and scanning
+- **Location**: Expo Location Services
+- **State Management**: React hooks and context
+
+## 📋 Development Commands
 
 ```bash
+# Start development server
+npm start
+
+# Run on Android
+npm run android
+
+# Run on iOS  
+npm run ios
+
+# Run on web
+npm run web
+
+# Lint code
+npm run lint
+
+# Reset project to blank template
 npm run reset-project
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🔐 Security Features
 
-## Learn more
+### Biometric Authentication
+- Fingerprint recognition
+- Face ID/Face recognition
+- Fallback to PIN/password
 
-To learn more about developing your project with Expo, look at the following resources:
+### Location Verification
+- Campus WiFi detection
+- GPS coordinate validation
+- Network-based location services
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### QR Code Security
+- Time-limited QR codes (30-60 seconds)
+- Encrypted QR data
+- Server-side validation
+- Unique session tokens
 
-## Join the community
+## 📊 For University Administration
 
-Join our community of developers creating universal apps.
+- Real-time attendance dashboards
+- Student attendance reports
+- Class-wise analytics
+- Export functionality for academic records
+- Integration with university management systems
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 🚀 Deployment
+
+### For Testing
+1. Build development version: `expo build`
+2. Install Expo Go on test devices
+3. Share QR code for testing
+
+### For Production
+1. Build standalone apps: `expo build:android` / `expo build:ios`
+2. Submit to app stores
+3. Configure production backend services
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create feature branch: `git checkout -b feature/new-feature`
+3. Commit changes: `git commit -am 'Add new feature'`
+4. Push to branch: `git push origin feature/new-feature`
+5. Submit pull request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🆘 Support
+
+For support and questions:
+- Create an issue in the repository
+- Contact the development team
+- Check the documentation
